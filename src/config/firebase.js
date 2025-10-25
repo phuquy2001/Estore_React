@@ -3,7 +3,6 @@ import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
-// Firebase configuration from environment variables
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -20,5 +19,21 @@ const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
 export const db = getFirestore(app)
 export const storage = getStorage(app)
+
+// Dynamic import để tránh lỗi compatibility
+const enablePersistence = async () => {
+  try {
+    const { enableIndexedDbPersistence } = await import('firebase/firestore')
+    await enableIndexedDbPersistence(db)
+    console.log('✅ Firestore offline persistence enabled')
+  } catch (err) {
+    console.warn('⚠️ Offline persistence not available:', err.message)
+  }
+}
+
+// Chỉ enable persistence trong browser environment
+if (typeof window !== 'undefined') {
+  enablePersistence()
+}
 
 export default app
