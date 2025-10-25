@@ -40,8 +40,8 @@ function Login() {
     
     if (result.success) {
       // Auto redirect admin to admin dashboard
-      console.log('Login result:', result) // Debug log
-      console.log('User role:', result.user?.role) // Debug log
+       // Debug log
+       // Debug log
       
       if (result.user?.role === 'admin' || result.user?.role === 'super_admin') {
         navigate('/admin', { replace: true })
@@ -60,8 +60,8 @@ function Login() {
     
     if (result.success) {
       // Auto redirect admin to admin dashboard
-      console.log('Google login result:', result) // Debug log
-      console.log('User role:', result.user?.role) // Debug log
+       // Debug log
+       // Debug log
       
       if (result.user?.role === 'admin' || result.user?.role === 'super_admin') {
         navigate('/admin', { replace: true })

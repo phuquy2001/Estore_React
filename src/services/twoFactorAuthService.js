@@ -109,7 +109,7 @@ async function setupSMS2FA(userId, phone) {
     
     // In production, you would integrate with SMS provider
     // For now, we'll simulate
-    console.log(`SMS 2FA setup for ${phone}`)
+    
     
     return {
       success: true,
@@ -138,7 +138,7 @@ async function setupEmail2FA(userId, email) {
     const backupCodes = generateBackupCodes()
     
     // In production, you would send verification email
-    console.log(`Email 2FA setup for ${email}`)
+    
     
     return {
       success: true,
