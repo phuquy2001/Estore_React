@@ -413,6 +413,38 @@ export async function updateAdminSecuritySettings(settings) {
 }
 
 /**
+ * Check if user has detailed permission
+ * @param {string} userId - User ID
+ * @param {string} permission - Permission to check
+ * @returns {Promise<boolean>} - Has permission
+ */
+export async function hasDetailedPermission(userId, permission) {
+  try {
+    if (!userId) return false
+
+    const userRef = doc(db, 'users', userId)
+    const userSnap = await getDoc(userRef)
+
+    if (!userSnap.exists()) return false
+
+    const userData = userSnap.data()
+    const userRole = userData.role || 'viewer'
+
+    // Check if user is active
+    if (userData.status === 'suspended' || userData.status === 'banned') {
+      return false
+    }
+
+    // Get role permissions from enhanced RBAC service
+    const { hasDetailedPermission: checkPermission } = await import('./enhancedRBACService')
+    return await checkPermission(userId, permission)
+  } catch (error) {
+    console.error('Detailed permission check error:', error)
+    return false
+  }
+}
+
+/**
  * Get admin activity summary
  * @param {string} userId - User ID
  * @param {number} days - Number of days
@@ -422,27 +454,27 @@ export async function getAdminActivitySummary(userId, days = 7) {
   try {
     const startDate = new Date()
     startDate.setDate(startDate.getDate() - days)
-    
+
     const q = query(
       collection(db, 'adminLogs'),
       where('userId', '==', userId),
       where('timestamp', '>=', startDate),
       orderBy('timestamp', 'desc')
     )
-    
+
     const querySnapshot = await getDocs(q)
     const activities = []
-    
+
     querySnapshot.forEach((doc) => {
       activities.push(doc.data())
     })
-    
+
     // Group by action
     const actionCounts = {}
     activities.forEach(activity => {
       actionCounts[activity.action] = (actionCounts[activity.action] || 0) + 1
     })
-    
+
     return {
       totalActions: activities.length,
       actionCounts,
