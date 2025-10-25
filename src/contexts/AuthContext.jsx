@@ -17,16 +17,36 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  // Subscribe to Firebase Auth state changes
-  useEffect(() => {
-    const unsubscribe = firebaseAuthService.onAuthStateChange((firebaseUser) => {
-      setUser(firebaseUser)
-      setLoading(false)
-    })
+ useEffect(() => {
+  const unsubscribe = firebaseAuthService.onAuthStateChange(async (firebaseUser) => {
+    if (firebaseUser) {
+      try {
+        const userDoc = await usersService.getById(firebaseUser.uid)
+        if (userDoc?.data) {
+          const userData = userDoc.data
+          const enhancedUser = {
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            name: userData.name,
+            role: userData.role || 'user',
+            avatar: userData.avatar
+          }
+          setUser(enhancedUser)
+        } else {
+          setUser(null)
+        }
+      } catch (error) {
+        console.error('Lỗi tải role:', error)
+        setUser(null)
+      }
+    } else {
+      setUser(null)
+    }
+    setLoading(false)
+  })
 
-    // Cleanup subscription
-    return () => unsubscribe()
-  }, [])
+  return () => unsubscribe()
+}, [])
 
   const login = async (email, password) => {
     try {
@@ -117,17 +137,16 @@ export function AuthProvider({ children }) {
   }
 
   const value = {
-    user,
-    loading,
-    login,
-    register,
-    logout,
-    loginWithGoogle,
-    updateUser,
-    isAuthenticated: !!user,
-    isAdmin: user?.role === 'admin'
-  }
-
+  user,
+  loading,
+  login,
+  register,
+  logout,
+  loginWithGoogle,
+  updateUser,
+  isAuthenticated: !!user,
+  isAdmin: user?.role === 'admin' || user?.role === 'super_admin' // ← Sửa ở đây!
+}
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}

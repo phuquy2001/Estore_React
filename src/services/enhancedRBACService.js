@@ -497,7 +497,6 @@ export async function canManageUser(managerId, targetUserId) {
  */
 export async function getAccessibleAdminSections(userId) {
   try {
-    const permissions = await getUserDetailedPermissions(userId)
     
     const sections = {
       dashboard: await hasDetailedPermission(userId, DETAILED_PERMISSIONS.ANALYTICS_VIEW),

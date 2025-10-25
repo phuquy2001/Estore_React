@@ -1,4 +1,4 @@
-// src/views/pages/Shop.js - Updated version
+// src/views/pages/Shop.jsx
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { 
@@ -9,6 +9,10 @@ import {
   selectProductsFilters 
 } from '../../controllers/productSlice'
 import { showErrorToast } from '../../services/notificationService'
+
+// SỬA DÒNG NÀY:
+import ProductCard from '../../components/ProductCard/ProductCard'
+// Thay vì: import ProductCard from '/src/components/ProductCard/'
 
 function Shop() {
   const dispatch = useDispatch()
@@ -32,16 +36,12 @@ function Shop() {
     dispatch(setFilters(newFilters))
   }
 
-  // Filtered products are now computed by Redux selector
-  // No need for useMemo in component
-
   return (
     <div className="py-8">
       <div className="container mx-auto px-4">
-        {/* Filters Section - Same as before but use handleFilterChange */}
+        {/* Filters */}
         <div className="bg-white rounded-lg shadow-default p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Search */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">
                 Tìm kiếm
@@ -54,8 +54,7 @@ function Shop() {
                 className="input"
               />
             </div>
-
-            {/* Category and Sort filters... */}
+            {/* Các filter khác... */}
           </div>
         </div>
 

@@ -4,7 +4,7 @@ import {
   getAdminLogs, 
   getAdminActivitySummary,
   hasDetailedPermission 
-} from '../../../services/adminSecurityService'
+} from '../../../services/enhancedRBACService'
 import { DETAILED_PERMISSIONS } from '../../../services/enhancedRBACService'
 import { showErrorToast } from '../../../services/notificationService'
 

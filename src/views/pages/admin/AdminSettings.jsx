@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../../contexts/AuthContext'
 import { 
-  getAdminSecuritySettings,
-  updateAdminSecuritySettings,
   hasDetailedPermission 
 } from '../../../services/adminSecurityService'
 import { DETAILED_PERMISSIONS } from '../../../services/enhancedRBACService'
