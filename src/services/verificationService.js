@@ -85,7 +85,7 @@ export async function generateOTP(email, phone = null) {
     
     // In production, you would send OTP via SMS/Email service
     // For now, we'll just log it (remove in production)
-    console.log(`OTP for ${email}: ${otp}`)
+    
     
     return {
       success: true,
@@ -330,7 +330,7 @@ export async function cleanupExpiredOTPs() {
     })
     
     await Promise.all(batch)
-    console.log(`Cleaned up ${batch.length} expired OTPs`)
+    
   } catch (error) {
     console.error('OTP cleanup error:', error)
   }

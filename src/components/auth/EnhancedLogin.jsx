@@ -150,7 +150,7 @@ function EnhancedLogin() {
 
   const handleSuccessfulLogin = async (userInfo) => {
     try {
-      console.log('User info after 2FA:', userInfo) // Debug log
+       // Debug log
       
       // Store user data in localStorage
       localStorage.setItem('user', JSON.stringify({
@@ -163,8 +163,8 @@ function EnhancedLogin() {
       
       // Check permissions and redirect
       const isAdminUser = await isAdmin(userInfo.uid)
-      console.log('Is admin user:', isAdminUser) // Debug log
-      console.log('User role:', userInfo.role) // Debug log
+       // Debug log
+       // Debug log
       
       if (isAdminUser || userInfo.role === 'admin' || userInfo.role === 'super_admin') {
         navigate('/admin', { replace: true })
