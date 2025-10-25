@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
       
       // Get user data from Firestore to get role information
       const userDoc = await usersService.getById(user.uid)
-      if (userDoc && userDoc.data) {
+      if (userDoc?.data) {
         const userData = userDoc.data
         const userWithRole = {
           uid: user.uid,
@@ -89,7 +89,7 @@ export function AuthProvider({ children }) {
       
       // Get user data from Firestore to get role information
       const userDoc = await usersService.getById(user.uid)
-      if (userDoc && userDoc.data) {
+      if (userDoc?.data) {
         const userData = userDoc.data
         const userWithRole = {
           uid: user.uid,
