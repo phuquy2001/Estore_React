@@ -87,11 +87,11 @@ export function withCache(fn, cacheKey, maxAge = 5 * 60 * 1000) {
     // Check cache first
     const cached = queryCache.get(key, maxAge)
     if (cached) {
-      console.log(`✅ Cache HIT: ${cacheKey}`)
+
       return cached
     }
 
-    console.log(`❌ Cache MISS: ${cacheKey}`)
+
     
     // Execute function
     const result = await fn(...args)

@@ -369,7 +369,7 @@ async function cleanupOldLogs() {
     
     if (batch.length > 0) {
       await Promise.all(batch)
-      console.log(`Cleaned up ${batch.length} old admin logs`)
+
     }
   } catch (error) {
     console.error('Log cleanup error:', error)

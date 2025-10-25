@@ -25,7 +25,7 @@ const enablePersistence = async () => {
   try {
     const { enableIndexedDbPersistence } = await import('firebase/firestore')
     await enableIndexedDbPersistence(db)
-    console.log('✅ Firestore offline persistence enabled')
+
   } catch (err) {
     console.warn('⚠️ Offline persistence not available:', err.message)
   }

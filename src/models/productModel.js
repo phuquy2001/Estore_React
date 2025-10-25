@@ -23,7 +23,7 @@ export const productService = {
    */
   async loadProducts(filters = {}) {
     try {
-      console.log('🔄 Loading products from Firebase...')
+
       
       let productsQuery = collection(db, 'products')
       
@@ -52,7 +52,7 @@ export const productService = {
         })
       })
       
-      console.log(`✅ Successfully loaded ${products.length} products from Firebase`)
+
       return products
     } catch (error) {
       console.error('❌ Failed to load products from Firebase:', error)
@@ -97,7 +97,7 @@ export const productService = {
         updatedAt: serverTimestamp()
       })
       
-      console.log('✅ Product created successfully:', docRef.id)
+
       return {
         id: docRef.id,
         ...productData
@@ -119,7 +119,7 @@ export const productService = {
         updatedAt: serverTimestamp()
       })
       
-      console.log('✅ Product updated successfully:', id)
+
       return {
         id,
         ...productData
@@ -136,7 +136,7 @@ export const productService = {
   async deleteProduct(id) {
     try {
       await deleteDoc(doc(db, 'products', id))
-      console.log('✅ Product deleted successfully:', id)
+
       return { success: true }
     } catch (error) {
       console.error('❌ Failed to delete product:', error)

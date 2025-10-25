@@ -35,7 +35,6 @@ export const productsService = {
     const cached = queryCache.get(cacheKey, 5 * 60 * 1000) // 5 min cache
     
     if (cached) {
-      console.log('✅ Products from cache')
       return cached
     }
 
