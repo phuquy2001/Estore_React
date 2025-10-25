@@ -1,14 +1,15 @@
 // src/views/pages/Shop.js - Updated version
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { 
-  fetchProducts, 
-  setFilters, 
-  selectFilteredProducts, 
+import {
+  fetchProducts,
+  setFilters,
+  selectFilteredProducts,
   selectProductsLoading,
-  selectProductsFilters 
+  selectProductsFilters
 } from '../../controllers/productSlice'
 import { showErrorToast } from '../../services/notificationService'
+import ProductCard from '../../components/ProductCard'
 
 function Shop() {
   const dispatch = useDispatch()
