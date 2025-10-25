@@ -3,47 +3,56 @@
 =======
 # 🛍️ Estore React - Full-Stack E-commerce Platform
 
-Modern e-commerce platform built with React, Redux Toolkit, and JSON Server.
+Modern, secure e-commerce platform built with React, Firebase, and Redux Toolkit. Features advanced admin panel with role-based access control, real-time analytics, and comprehensive product management.
 
 ## 🚀 Features
 
-### ✅ Implemented
-- **Product Management**: Browse, search, filter, and sort products
-- **Shopping Cart**: Add/remove items, update quantities, localStorage persistence
-- **Authentication**: Login/Register system with role-based access
-- **Admin Panel**: Manage products, orders, and users (admin only)
-- **Responsive Design**: Mobile-first approach with TailwindCSS
-- **State Management**: Redux Toolkit for global state
-- **API Integration**: RESTful API with JSON Server
-- **Protected Routes**: Authentication-based route protection
+### ✅ Fully Implemented
+- **🔐 Advanced Authentication**: Firebase Auth with Google login, email/password
+- **👤 User Management**: Profile management, order history, address book
+- **🛒 Shopping Cart**: Add/remove items, quantity updates, localStorage persistence
+- **📦 Product Management**: CRUD operations, categories, inventory tracking
+- **⭐ Product Reviews**: Rating system, user reviews with moderation
+- **📊 Advanced Analytics**: Real-time dashboard, sales reports, customer insights
+- **👨‍💼 Admin Panel**: Comprehensive admin interface with role-based permissions
+- **🔒 Security Features**: 2FA, session management, IP restrictions, audit logging
+- **📱 Responsive Design**: Mobile-first approach with TailwindCSS
+- **🔄 State Management**: Redux Toolkit for global state
+- **📥 Import/Export**: Bulk product import via CSV/JSON, data export
+- **⚡ Performance**: Query caching, optimized Firebase operations
 
-### 🔜 Ready to Implement
-- **Payment Integration**: VNPay, Momo, Stripe
-- **Order Management**: Full order lifecycle
-- **User Profile**: Order history, address management
-- **Product Reviews**: Rating and comment system
-- **Email Notifications**: Order confirmations
+### 🔜 Future Enhancements
+- **💳 Payment Integration**: VNPay, Momo, Stripe gateways
+- **📧 Email Notifications**: Order confirmations, marketing campaigns
+- **📱 Mobile App**: React Native companion app
+- **🌐 Multi-language**: Internationalization support
 
 ## 📦 Tech Stack
 
 - **Frontend**: React 18, Vite, TailwindCSS
+- **Backend**: Firebase (Firestore, Auth, Storage, Hosting)
 - **State Management**: Redux Toolkit
 - **Routing**: React Router v6
-- **HTTP Client**: Axios
-- **Backend**: JSON Server (Mock API)
-- **Styling**: TailwindCSS + Custom Components
+- **Database**: Firestore (NoSQL)
+- **Authentication**: Firebase Auth
+- **File Storage**: Firebase Storage
+- **Testing**: Vitest + Testing Library
+- **Build Tool**: Vite
+- **Deployment**: Vercel/Netlify/Firebase Hosting
 
 ## 🛠️ Installation
 
 ### Prerequisites
 - Node.js >= 16.x
 - npm or yarn
+- Firebase project (for full functionality)
 
 ### Setup
 
 1. **Clone the repository**
 ```bash
-cd C:\Users\phuqu\.qodo\project\estore-react
+git clone <repository-url>
+cd estore-react
 ```
 
 2. **Install dependencies**
@@ -51,19 +60,29 @@ cd C:\Users\phuqu\.qodo\project\estore-react
 npm install
 ```
 
-3. **Start the development server**
-```bash
-# Run both frontend and backend
-npm run dev:all
+3. **Configure Firebase**
+   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+   - Enable Firestore, Authentication, and Storage
+   - Copy your Firebase config to `.env` file
 
-# Or run separately:
-npm run server  # Backend on http://localhost:3001
-npm run dev     # Frontend on http://localhost:5173
+4. **Environment Variables**
+   Create a `.env` file in the root directory:
+```env
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
 ```
 
-4. **Access the application**
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:3001
+5. **Start the development server**
+```bash
+npm run dev
+```
+
+6. **Access the application**
+   - Frontend: http://localhost:5173
 
 ## 👤 Demo Accounts
 
@@ -81,45 +100,73 @@ npm run dev     # Frontend on http://localhost:5173
 
 ```
 estore-react/
-├── server/
-│   ├── db.json              # JSON database
-│   └── server.js            # Express API server
 ├── src/
 │   ├── components/          # Reusable components
-│   │   └── ProtectedRoute.jsx
-│   ├── contexts/            # React contexts
-│   │   └── AuthContext.jsx
-│   ├── controllers/         # Redux slices
-│   │   ├── store.js
-│   │   ├── cartSlice.js
-│   │   └── productSlice.js
-│   ├── models/              # Business logic
-│   │   └── productModel.js
-│   ├── services/            # API services
-│   │   ├── apiService.js
-│   │   └── notificationService.js
-│   ├── views/
-│   │   ├── layouts/
+│   │   ├── admin/          # Admin-specific components
+│   │   │   ├── ProductForm.jsx
+│   │   │   ├── ProductImporter.jsx
+│   │   │   └── AdvancedAnalytics.jsx
+│   │   ├── auth/           # Authentication components
+│   │   ├── ProductCard.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   ├── ReviewForm.jsx
+│   │   ├── ReviewList.jsx
+│   │   ├── StarRating.jsx
+│   │   └── utils/          # Utility components
+│   ├── config/             # Configuration files
+│   │   └── firebase.js     # Firebase configuration
+│   ├── contexts/           # React contexts
+│   │   └── AuthContext.jsx # Authentication context
+│   ├── controllers/        # Redux slices
+│   │   ├── store.js        # Redux store
+│   │   ├── cartSlice.js    # Cart state
+│   │   └── productSlice.js # Product state
+│   ├── models/             # Business logic
+│   │   └── productModel.js # Product utilities
+│   ├── services/           # API services
+│   │   ├── apiService.js   # Main API service
+│   │   ├── firebaseService.js # Firebase operations
+│   │   ├── firebaseAuthService.js # Auth operations
+│   │   ├── adminSecurityService.js # Admin security
+│   │   ├── enhancedRBACService.js # Role-based access
+│   │   └── notificationService.js # Toast notifications
+│   ├── styles/             # Global styles
+│   ├── utils/              # Utility functions
+│   │   ├── cache.js        # Caching utilities
+│   │   └── passwordValidator.js # Password validation
+│   ├── views/              # Page components
+│   │   ├── layouts/        # Layout components
 │   │   │   └── Layout.jsx
-│   │   ├── pages/
+│   │   ├── pages/          # Main pages
 │   │   │   ├── Home.jsx
 │   │   │   ├── Shop.jsx
 │   │   │   ├── ProductDetail.jsx
 │   │   │   ├── Cart.jsx
+│   │   │   ├── Checkout.jsx
+│   │   │   ├── OrderSuccess.jsx
+│   │   │   ├── Profile.jsx
+│   │   │   ├── OrderDetail.jsx
 │   │   │   ├── Login.jsx
 │   │   │   ├── Register.jsx
-│   │   │   └── admin/
+│   │   │   └── admin/      # Admin pages
 │   │   │       ├── AdminDashboard.jsx
-│   │   │       └── AdminProducts.jsx
-│   │   └── styles/
-│   │       └── index.css
+│   │   │       ├── AdminDashboardHome.jsx
+│   │   │       ├── AdminProducts.jsx
+│   │   │       ├── AdminOrders.jsx
+│   │   │       ├── AdminOrderDetail.jsx
+│   │   │       ├── AdminUsers.jsx
+│   │   │       ├── AdminLogs.jsx
+│   │   │       ├── AdminSettings.jsx
+│   │   │       └── AdminSecuritySettings.jsx
+│   │   └── styles/         # Page-specific styles
 │   ├── App.jsx
 │   └── main.jsx
-├── .env                     # Environment variables
+├── .env                    # Environment variables
 ├── .gitignore
 ├── package.json
 ├── tailwind.config.js
-└── vite.config.js
+├── vite.config.js
+└── README.md
 ```
 
 ## 🔐 Environment Variables
@@ -127,13 +174,66 @@ estore-react/
 Create a `.env` file in the root directory:
 
 ```env
-VITE_API_URL=http://localhost:3001
-VITE_MOMO_PARTNER_CODE=your_momo_partner_code
+# Firebase Configuration
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+
+# Optional: Payment gateways (for future implementation)
 VITE_VNPAY_TMN_CODE=your_vnpay_tmn_code
+VITE_MOMO_PARTNER_CODE=your_momo_partner_code
 VITE_STRIPE_PUBLIC_KEY=pk_test_your_stripe_key
 ```
 
 ## 🚢 Deployment
+
+### Deploy to Firebase Hosting
+
+1. **Install Firebase CLI**
+```bash
+npm install -g firebase-tools
+```
+
+2. **Login to Firebase**
+```bash
+firebase login
+```
+
+3. **Initialize Firebase Hosting**
+```bash
+firebase init hosting
+```
+
+4. **Build the project**
+```bash
+npm run build
+```
+
+5. **Deploy**
+```bash
+firebase deploy
+```
+
+### Deploy to Vercel
+
+1. **Install Vercel CLI**
+```bash
+npm install -g vercel
+```
+
+2. **Deploy**
+```bash
+vercel
+```
+
+3. **Set environment variables**
+```bash
+vercel env add VITE_FIREBASE_API_KEY
+# Add all other VITE_* variables
+```
 
 ### Deploy to Netlify
 
@@ -158,54 +258,24 @@ netlify deploy --prod --dir=dist
 - Go to Site Settings → Environment Variables
 - Add all VITE_* variables
 
-### Deploy to Vercel
+## 🔌 Firebase Services
 
-1. **Install Vercel CLI**
-```bash
-npm install -g vercel
-```
-
-2. **Deploy**
-```bash
-vercel
-```
-
-3. **Set environment variables**
-```bash
-vercel env add VITE_API_URL
-```
-
-### Backend Deployment
-
-For production, replace JSON Server with a real backend:
-- **Node.js + Express + MongoDB**
-- **Firebase**
-- **Supabase**
-- **AWS Amplify**
-
-## 🔌 API Endpoints
-
-### Products
-- `GET /products` - Get all products
-- `GET /products/:id` - Get single product
-- `POST /products` - Create product (admin)
-- `PUT /products/:id` - Update product (admin)
-- `DELETE /products/:id` - Delete product (admin)
+### Firestore Collections
+- **products**: Product catalog with categories, pricing, inventory
+- **orders**: Order management with status tracking
+- **users**: User profiles and roles
+- **reviews**: Product reviews and ratings
+- **adminLogs**: Security audit logs
 
 ### Authentication
-- `POST /register` - Register new user
-- `POST /login` - Login user
+- Email/Password authentication
+- Google OAuth integration
+- Role-based access control (Customer, Admin, Manager, Staff, Viewer)
 
-### Orders
-- `GET /orders` - Get all orders (admin)
-- `GET /orders?userId=:id` - Get user orders
-- `POST /orders` - Create order
-- `PATCH /orders/:id` - Update order status (admin)
-
-### Users
-- `GET /users` - Get all users (admin)
-- `GET /users/:id` - Get user details
-- `PATCH /users/:id` - Update user
+### Storage
+- Product images
+- User avatars
+- Static assets
 
 ## 💳 Payment Integration Guide
 
@@ -238,35 +308,83 @@ VITE_MOMO_ACCESS_KEY=your_access_key
 VITE_STRIPE_PUBLIC_KEY=pk_test_...
 ```
 
-## 📝 Next Steps
+## 📝 Scripts
 
-1. **Implement Payment Gateways**
-   - Create payment service in `src/services/paymentService.js`
-   - Add payment methods to checkout flow
+```bash
+# Development
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
 
-2. **Complete Admin Features**
-   - Order management page
-   - User management page
-   - Dashboard statistics
+# Testing
+npm run test         # Run tests
+npm run test:ui      # Run tests with UI
+```
 
-3. **Add User Profile**
-   - Order history
-   - Address book
-   - Wishlist
+## 💳 Payment Integration (Planned)
 
-4. **Product Reviews**
-   - Rating system
-   - Review submission
-   - Review moderation (admin)
+### VNPay Integration (Vietnam)
 
-5. **Email Integration**
-   - SendGrid or AWS SES
-   - Order confirmations
-   - Password reset
+1. Register at [VNPay](https://vnpay.vn/)
+2. Get TMN Code and Hash Secret
+3. Add to `.env`:
+```env
+VITE_VNPAY_TMN_CODE=your_tmn_code
+VITE_VNPAY_HASH_SECRET=your_hash_secret
+```
+
+### Momo Integration (Vietnam)
+
+1. Register at [Momo Business](https://business.momo.vn/)
+2. Get Partner Code and Access Key
+3. Add to `.env`:
+```env
+VITE_MOMO_PARTNER_CODE=your_partner_code
+VITE_MOMO_ACCESS_KEY=your_access_key
+```
+
+### Stripe Integration (International)
+
+1. Create account at [Stripe](https://stripe.com/)
+2. Get API keys from Dashboard
+3. Add to `.env`:
+```env
+VITE_STRIPE_PUBLIC_KEY=pk_test_...
+```
+
+## 🔒 Security Features
+
+- **2FA Support**: Two-factor authentication for admins
+- **Session Management**: Configurable session timeouts
+- **IP Restrictions**: Whitelist IPs for admin access
+- **Audit Logging**: Track all admin activities
+- **Role-Based Access**: Granular permissions system
+- **Security Headers**: Firebase security rules
+
+## 📊 Admin Features
+
+- **Dashboard**: Analytics and key metrics
+- **Product Management**: CRUD operations with bulk actions
+- **Order Management**: Status updates and tracking
+- **User Management**: Role assignment and account control
+- **Security Settings**: Configure security policies
+- **Audit Logs**: Monitor admin activities
+- **Analytics**: Revenue and user behavior insights
+
+## 🎯 Performance Optimizations
+
+- **Firebase Caching**: Custom query cache system
+- **Lazy Loading**: Components and images
+- **Code Splitting**: Route-based code splitting
+- **Bundle Analysis**: Vite build optimization
 
 ## 🤝 Contributing
 
-This is a demo project. Feel free to fork and modify as needed.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
@@ -278,16 +396,19 @@ For issues or questions:
 1. Check the documentation
 2. Review the code comments
 3. Check browser console for errors
+4. Create an issue on GitHub
 
-## 🎯 Performance Tips
+## 🎯 Roadmap
 
-- Images are loaded from Picsum (placeholder service)
-- Replace with CDN or optimized images for production
-- Enable lazy loading for product images
-- Use React.memo() for expensive components
-- Implement pagination for product lists
+- [ ] Payment gateway integration
+- [ ] Email notification system
+- [ ] Advanced inventory management
+- [ ] Multi-language support
+- [ ] Mobile app (React Native)
+- [ ] API rate limiting
+- [ ] Backup and restore system
 
 ---
 
-Built with ❤️ using React + Vite + TailwindCSS
+Built with ❤️ using React + Firebase + TailwindCSS
 >>>>>>> c390c2c (Firt commit)
