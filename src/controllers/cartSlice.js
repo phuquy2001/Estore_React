@@ -6,7 +6,6 @@ const initialState = {
   error: null
 }
 
-// Load cart from localStorage
 const loadCartFromStorage = () => {
   try {
     const saved = localStorage.getItem('cart_v1')
@@ -17,13 +16,19 @@ const loadCartFromStorage = () => {
   }
 }
 
-// Save cart to localStorage
+// Debounced save function
+let saveTimeout = null
 const saveCartToStorage = (items) => {
-  try {
-    localStorage.setItem('cart_v1', JSON.stringify(items))
-  } catch (error) {
-    console.error('Failed to save cart to storage', error)
+  if (saveTimeout) {
+    clearTimeout(saveTimeout)
   }
+  saveTimeout = setTimeout(() => {
+    try {
+      localStorage.setItem('cart_v1', JSON.stringify(items))
+    } catch (error) {
+      console.error('Failed to save cart to storage', error)
+    }
+  }, 500) // Wait 500ms after last change
 }
 
 const cartSlice = createSlice({
